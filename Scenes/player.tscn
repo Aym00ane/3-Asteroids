@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dkuwogui5ihxl"]
+[gd_scene load_steps=4 format=3 uid="uid://dkuwogui5ihxl"]
 
 [ext_resource type="Texture2D" uid="uid://cjt2q6tugvog4" path="res://Assets/Player.png" id="1_k0th1"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_wwstr"]
+[ext_resource type="PackedScene" uid="uid://bqq8gub8oap0c" path="res://Scenes/screen_bound_movement.tscn" id="3_y43e7"]
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_wwstr")
@@ -13,3 +14,6 @@ texture = ExtResource("1_k0th1")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 rotation = 3.14159
 polygon = PackedVector2Array(2.08165e-12, -32, 32, 32, 2.08165e-12, 16, -32, 32)
+
+[node name="ScreenBoundMovement" parent="." node_paths=PackedStringArray("node") instance=ExtResource("3_y43e7")]
+node = NodePath("..")
