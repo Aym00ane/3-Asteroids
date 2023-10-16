@@ -6,3 +6,4 @@
 [node name="AsteroidsSpawner" type="Node"]
 script = ExtResource("1_o5o6u")
 asteroid_scene = ExtResource("2_qb054")
+count = 6

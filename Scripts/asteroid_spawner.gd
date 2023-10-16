@@ -3,11 +3,13 @@ class_name AsteroidsSpawner
 
 @export var asteroid_scene: PackedScene
 
-@export var count = 6
+@export var count = 10
+
+const utils = preload("res://Scripts/utils.gd")
 func _ready():
-	for i in range(6):
+	for i in range(count):
 		var random_spawn_position = get_random_position()
-		spawn_asteroid(random_spawn_position)
+		spawn_asteroid(utils.AsteroidSize.BIG , random_spawn_position)
 
 
 
@@ -29,11 +31,19 @@ func get_random_position() -> Vector2:
 	var y = randf_range(bounds.top, bounds.bottom)
 	return Vector2(x,y)
 
-func spawn_asteroid(random_spawn_position):
+func spawn_asteroid(size : utils.AsteroidSize , random_spawn_position : Vector2):
 	var asteroid = asteroid_scene.instantiate() as Asteroid
 	get_tree().root.add_child.call_deferred(asteroid)
 	asteroid.global_position = random_spawn_position
+	asteroid.size = size
+	asteroid.on_asteroid_destruction.connect(asteroid_destroyed)
 
+func asteroid_destroyed(size : int, position :Vector2):
+	if size <= 2:
+		spawn_asteroid(size,position)
+		spawn_asteroid(size,position)
+	
+	
 
 
 

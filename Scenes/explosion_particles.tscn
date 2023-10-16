@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfc3fyk4gqcss"]
+
+[ext_resource type="Script" path="res://Scripts/explosion_particles.gd" id="1_ma8es"]
+
+[node name="ExplosionParticles" type="CPUParticles2D"]
+emitting = false
+amount = 10
+lifetime = 6.0
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(2.08165e-12, 2.08165e-12)
+initial_velocity_min = 128.0
+initial_velocity_max = 223.0
+angle_max = 180.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+script = ExtResource("1_ma8es")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
