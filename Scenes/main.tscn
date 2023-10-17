@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cipg8mwykev6t"]
+[gd_scene load_steps=5 format=3 uid="uid://cipg8mwykev6t"]
 
 [ext_resource type="PackedScene" uid="uid://dkuwogui5ihxl" path="res://Scenes/player.tscn" id="1_dx15s"]
 [ext_resource type="PackedScene" uid="uid://b2j5e6i4scw5a" path="res://Scenes/asteroid_spawner.tscn" id="2_opq6a"]
+[ext_resource type="PackedScene" uid="uid://4hasvd7hybyi" path="res://Scenes/ufo_spawner.tscn" id="3_7x3sg"]
+[ext_resource type="PackedScene" uid="uid://cwebq2urhkp3f" path="res://Scenes/ufo.tscn" id="4_m70s4"]
 
 [node name="Node" type="Node"]
 
@@ -11,3 +13,6 @@ zoom = Vector2(0.5, 0.5)
 [node name="Player" parent="." instance=ExtResource("1_dx15s")]
 
 [node name="AsteroidsSpawner" parent="." instance=ExtResource("2_opq6a")]
+
+[node name="UfoSpawner" parent="." instance=ExtResource("3_7x3sg")]
+ufo_scene = ExtResource("4_m70s4")

@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://4hasvd7hybyi"]
+
+[ext_resource type="Script" path="res://Scripts/ufo_spawner.gd" id="1_jk6j6"]
+[ext_resource type="Script" path="res://Scripts/Timer.gd" id="2_ry7qd"]
+
+[sub_resource type="Curve2D" id="Curve2D_0kru1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -384, 64, 0, 0, 0, 0, -768, 0, 0, 0, 0, 0, -1152, 64, 0, 0, 0, 0, -1536, 0, 0, 0, 0, 0, -1920, 64, 0, 0, 0, 0, -2304, 0)
+}
+point_count = 7
+
+[sub_resource type="Curve2D" id="Curve2D_q4fn2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 384, 64, 0, 0, 0, 0, 768, 0, 0, 0, 0, 0, 1152, 64, 0, 0, 0, 0, 1536, 0, 0, 0, 0, 0, 1920, 64, 0, 0, 0, 0, 2304, 0)
+}
+point_count = 7
+
+[node name="UfoSpawner" type="Node"]
+script = ExtResource("1_jk6j6")
+
+[node name="Top" type="Path2D" parent="."]
+position = Vector2(1152, -576)
+curve = SubResource("Curve2D_0kru1")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Top"]
+rotates = false
+
+[node name="Bottom" type="Path2D" parent="."]
+position = Vector2(-1152, 512)
+curve = SubResource("Curve2D_q4fn2")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Bottom"]
+rotates = false
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+script = ExtResource("2_ry7qd")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
