@@ -1,22 +1,63 @@
-[gd_scene load_steps=6 format=3 uid="uid://dkuwogui5ihxl"]
+[gd_scene load_steps=12 format=3 uid="uid://dkuwogui5ihxl"]
 
 [ext_resource type="Texture2D" uid="uid://cjt2q6tugvog4" path="res://Assets/Player.png" id="1_k0th1"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_wwstr"]
 [ext_resource type="PackedScene" uid="uid://bqq8gub8oap0c" path="res://Scenes/screen_bound_movement.tscn" id="3_y43e7"]
 [ext_resource type="Script" path="res://Scripts/ShootingPoint.gd" id="4_3btt2"]
 [ext_resource type="PackedScene" uid="uid://cnvadwr6rlhqo" path="res://Scenes/bullet.tscn" id="5_43cty"]
+[ext_resource type="Texture2D" uid="uid://bnr428kwvtjxs" path="res://Assets/EngineThrottle.png" id="6_r5reg"]
+[ext_resource type="AudioStream" uid="uid://1fou2yf28hm0" path="res://Assets/audio/engine.ogg" id="7_7y4ya"]
+[ext_resource type="AudioStream" uid="uid://b45raxr7qt34u" path="res://Assets/audio/player_shot.ogg" id="7_emfqg"]
+
+[sub_resource type="Animation" id="Animation_7wkbm"]
+resource_name = "EngineAnimation"
+length = 0.25
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EngineSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_70gke"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EngineSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ge4nn"]
+_data = {
+"EngineAnimation": SubResource("Animation_7wkbm"),
+"RESET": SubResource("Animation_70gke")
+}
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 16
 script = ExtResource("1_wwstr")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-rotation = 3.14159
-texture = ExtResource("1_k0th1")
-
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 rotation = 3.14159
 polygon = PackedVector2Array(2.08165e-12, -32, 32, 32, 2.08165e-12, 16, -32, 32)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 3.14159
+texture = ExtResource("1_k0th1")
 
 [node name="ScreenBoundMovement" parent="." node_paths=PackedStringArray("node") instance=ExtResource("3_y43e7")]
 node = NodePath("..")
@@ -25,3 +66,26 @@ node = NodePath("..")
 position = Vector2(2.08165e-12, 32)
 script = ExtResource("4_3btt2")
 bullet_scene = ExtResource("5_43cty")
+
+[node name="BlinkingTimer" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="EngineSprite" type="Sprite2D" parent="."]
+position = Vector2(0, -27)
+rotation = 3.14159
+texture = ExtResource("6_r5reg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ge4nn")
+}
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_emfqg")
+
+[node name="EngineSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_7y4ya")

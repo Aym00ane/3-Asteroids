@@ -41,7 +41,8 @@ func _process(delta):
 
 
 func _on_body_entered(body):
-	if body is Player:
+	if body is Player && !(body as Player).is_invincible:
+		(body as Player).on_player_death.emit()
 		body.queue_free()
 		on_destroy()
 
@@ -57,7 +58,7 @@ func on_destroy():
 
 
 func _on_area_entered(area):
-	if area is Bullet:
+	if area is Bullet || area is Ufo:
 		area.queue_free()
 		on_destroy()
 		

@@ -1,15 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://cwebq2urhkp3f"]
+[gd_scene load_steps=7 format=3 uid="uid://cwebq2urhkp3f"]
 
 [ext_resource type="Texture2D" uid="uid://b52xmwbstytn3" path="res://Assets/ufo.png" id="1_aagax"]
 [ext_resource type="Script" path="res://Scripts/ufo.gd" id="1_p3qsb"]
 [ext_resource type="PackedScene" uid="uid://cnvadwr6rlhqo" path="res://Scenes/bullet.tscn" id="2_ygoof"]
 [ext_resource type="PackedScene" uid="uid://dfc3fyk4gqcss" path="res://Scenes/explosion_particles.tscn" id="3_g5xrs"]
+[ext_resource type="AudioStream" uid="uid://kc21ol3fnvsi" path="res://Assets/audio/ufo_shot.ogg" id="5_tpnf4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hnvb1"]
 radius = 9.0
 height = 60.0
 
 [node name="Ufo" type="Area2D"]
+collision_layer = 8
+collision_mask = 3
 script = ExtResource("1_p3qsb")
 bullet_scene = ExtResource("2_ygoof")
 
@@ -28,4 +31,8 @@ shape = SubResource("CapsuleShape2D_hnvb1")
 [node name="ShootingTimer" type="Timer" parent="."]
 autostart = true
 
+[node name="UfoShotSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_tpnf4")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
