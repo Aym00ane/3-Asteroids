@@ -5,7 +5,7 @@ signal points_updated(points: int)
 signal game_won
 
 @export var asteroid_scene: PackedScene
-@export var count = 10
+@export var count = 6
 @export var base_asteroids_points = 50
 
 @onready var explosion_sound = $"../ExplosionSound"

@@ -5,6 +5,8 @@ extends CanvasLayer
 @onready var game_over_label: Label = %GameOverLabel
 @onready var points_label: Label = %PointsLabel
 @onready var asteroids_spawner: AsteroidsSpawner = $"../AsteroidsSpawner"
+@onready var reload = $reload
+
 
 
 
@@ -13,6 +15,7 @@ var empty_life_texture = preload("res://Assets/Player.png")
 
 
 func _ready():
+	reload.visible = false
 	var lives = lives_manager.lives
 	
 	for i in range(lives):
@@ -31,6 +34,7 @@ func life_lost(lives_left):
 	life_texture_rect.texture = empty_life_texture
 	
 	if lives_left == 0:
+		reload.visible = true
 		game_over_label.visible = true
 
 func score_points(points: int):
@@ -38,7 +42,12 @@ func score_points(points: int):
 
 
 func game_won():
+	reload.visible = true
 	game_over_label.visible = true
 	game_over_label.text = "Noice! U WON"
 	game_over_label.add_theme_font_size_override("font_size",80)
 	game_over_label.add_theme_color_override("font_color",Color.CHARTREUSE)
+
+
+func _on_reload_pressed():
+	get_tree().reload_current_scene()
