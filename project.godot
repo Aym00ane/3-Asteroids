@@ -21,6 +21,10 @@ window/size/window_width_override=1920
 window/size/window_height_override=1080
 window/stretch/scale=1.5
 
+[dotnet]
+
+project/assembly_name="3-Asteroids"
+
 [input]
 
 rotate_left={
